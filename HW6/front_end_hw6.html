@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <style>
+            form {
+                border-width: 2px;
+                border-style: solid;
+                border-color: lightgrey;
+                margin: 0 auto;
+                width: 600px;
+            }
+            </style>
+    </head>
+    <body>
+        <div>
+            <form>
+                <h1 style="margin: 0"> Product Search </h1>
+                <div>
+                    <b>Keyword</b>
+                        <input type="text" name="keyword"/>
+                        <br>
+                        <br>
+                        <b>Category</b>
+                        <select name="category">
+                            <option value="all">All Categories</option>
+                            <option value="art">Art</option>
+                            <option value="baby">Baby</option>
+                            <option value="books">Books</option>
+                            <option value="clothing">Clothing</option>
+                            <option value="shoes_and_acces"> Shoes & Accessories</option>
+                            <option value="comp_tablet_network">Computer/Tablets & Netoworking</option>
+                            <option value="health_and_beauty">Health & Beauty</option>
+                            <option value="music_and_vidgame_and_console">Music and Video Games & Consoles</option>
+                        </select>
+                        <br>
+                        <br>
+                        <b>Condition</b>
+                            <input type="checkbox" name="new"/><label>New</label>
+                            <input type="checkbox" name="used"/><label>Used</label>
+                            <input type="checkbox" name="unknown"/><label>Unspecified</label>
+                        <br>
+                        <br>
+                        <b>Shipping Options</b>
+                            <input type="checkbox" name="pickup"/><label>Local Pickup</label>
+                            <input type="checkbox" name="free_ship"/><label>Free Shipping</label>
+                        <br>
+                        <br>
+                        <input type="checkbox" name="near_search" id="nearbySearch"/><label><b>Enable Nearby Search</b></label>
+                        <input type="text" size="6" name="miles" value="10" id="radius" disabled/><label><b> miles from</b></label>
+                        <input type="radio" name="here" checked="checked" id="hereRadio" disabled/><label>Here</label>
+                </div>
+            </form>
+        </div>
+    </body>
+</html>

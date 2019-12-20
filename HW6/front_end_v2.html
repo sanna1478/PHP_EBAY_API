@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <style>
+            form {
+                border-width: 3px;
+                border-style: solid;
+                border-color: #C0C0C0;
+                background-color: #fff7f8;
+                margin: 0 auto;
+                width: 600px
+            }
+            h1.title_header {
+                margin: 0;
+                font-family: serif;
+                font-weight: 200;
+                border-bottom-width: 2px;
+                border-bottom-style: solid;
+                border-bottom-color: #C0C0C0;
+                width: 97%;
+            }
+
+            div.form_input_container {
+                padding-left: 20px;
+                padding-top: 10px;
+            }
+            div.form_button_container {
+                padding-left: 20px;
+                padding-top: 10px;
+                padding-bottom: 20px;
+                text-align: center;
+            }
+
+        </style>
+    </head>
+    <body>
+        <div>
+            <form action="" method="POST">
+                <div align="center" id="title">
+                    <h1 align="center" class="title_header"><i>Product Search</i></h1>
+                </div>
+                <div class="form_input_container">
+                    <b>Keyword</b>
+                    <input type="text" name="keyword" id="keyword_input"/>
+                </div>
+                <div class="form_input_container">
+                    <b>Category</b>
+                    <select name="category" id="cat_selection">
+                        <option value="0">All Categories</option>
+                        <option value="1">Art</option>
+                        <option value="2">Baby</option>
+                        <option value="3">Books</option>
+                        <option value="4">Clothing</option>
+                        <option value="5"> Shoes & Accessories</option>
+                        <option value="6">Computer/Tablets & Netoworking</option>
+                        <option value="7">Health & Beauty</option>
+                        <option value="8">Music and Video Games & Consoles</option>
+                    </select>
+                </div>
+                <div class="form_input_container">
+                    <b style="padding-right: 20px">Condition</b>
+                    <input type="checkbox" name="new" id="new_checkbox"/><label style="padding-right: 20px">New</label>
+                    <input type="checkbox" name="used" id="used_checkbox"/><label style="padding-right: 20px">Used</label>
+                    <input type="checkbox" name="unknown" id="unknown_checkbox"/><label style="padding-right: 20px">Unspecified</label>
+                </div>
+                <div class="form_input_container">
+                    <b style="padding-right: 45px">Shipping Options</b>
+                    <input type="checkbox" name="pickup" id="pickup_checkbox"/><label style="padding-right: 45px">Local Pickup</label>
+                    <input type="checkbox" name="free_ship" id="free_ship_checkbox"/><label>Free Shipping</label>
+                </div>
+                <div class="form_input_container">
+                    <table style="display: inline">
+                        <tr>
+                            <td rowspan="2" valign="top">
+                                <input type="checkbox" name="near" id="near_me" onclick="enable_inputs()"/><label style="padding-right: 20px"><b>Enable Nearby Search</b></label>
+                                <input type="text" name="miles" size="6" value="10" id="dist" disabled/><label style="padding-left: 5px;opacity:0.5" id="miles_label"><b>miles from</b></label>
+                            </td>
+                            <td>
+                                <input style ="background: #0000FF"type="radio" name="here" id="here_radio" checked="checked" onclick="toggle_here_radio()" disabled/><label style="opacity:0.5" id="here_label">Here</label>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <input type="radio" name="zip" id="zip_radio" onclick="toggle_zip_radio()" disabled/>
+                                <input type="text" name="zip_code" placeholder="zip code" id="zip_text" disabled/>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+                <div class="form_button_container">
+                    <input type="submit" name="submit_form" value="Search" onclick=""/>
+                    <input type="button" name="clear_form" value="Clear" onclick="clear_form(this.form)"/>
+                </div>
+            </form>
+        </div>
+        <script>
+            function clear_form(data){
+                keyword_input = document.getElementById("keyword_input");
+                dist_text = document.getElementById("dist");
+                zip_text = document.getElementById("zip_text");
+                here_label = document.getElementById("here_label");
+                miles_label = document.getElementById("miles_label");
+
+                miles_label.style.opacity = "0.5";
+                here_label.style.opacity = "0.5";
+                keyword_input.value = "";
+                dist_text.value = "10";
+                dist_text.disabled = true;
+                zip_text.disabled = true;
+                zip_text.value = "";
+                zip_text.placeholder = "zip code";
+
+
+                var form_elements = data.elements;
+                for(idx=0; idx<form_elements.length; idx++){
+                    field_type = form_elements[idx].type.toLowerCase();
+                    switch(field_type){
+                        case "checkbox":
+                            form_elements[idx].checked = false;
+                            break;
+                        case "radio":
+                            if(form_elements[idx].name == "here"){
+                                form_elements[idx].checked = true;
+                                form_elements[idx].disabled = true;
+                            }
+                            if(form_elements[idx].name == "zip"){
+                                form_elements[idx].checked = false;
+                                form_elements[idx].disabled = true;
+                            }
+                            break;
+                        case "select-one":
+                        case "select-muli":
+                            form_elements[idx].selectedIndex = 0;
+                            break;
+                        default:
+                            break;
+                    }
+                }
+            }
+            function enable_inputs(){
+                nearby_checkbox = document.getElementById("near_me");
+                miles_textbox = document.getElementById("dist");
+                zip_radio = document.getElementById("zip_radio");
+                here_radio = document.getElementById("here_radio");
+                zip_text = document.getElementById("zip_text");
+                here_label = document.getElementById("here_label");
+                miles_label = document.getElementById("miles_label");
+
+
+                if(nearby_checkbox.checked){
+                    miles_textbox.disabled = false;
+                    zip_radio.disabled = false;
+                    here_radio.disabled = false;
+                    miles_label.style.opacity = "1.0";
+                    here_label.style.opacity = "1.0";
+                }
+                if(!nearby_checkbox.checked){
+                    miles_textbox.disabled = true;
+                    zip_radio.disabled = true;
+                    zip_text.disabled = true;
+                    here_radio.disabled = true;
+                    miles_label.style.opacity = "0.5";
+                    here_label.style.opacity = "0.5";
+                }
+            }
+            function toggle_zip_radio(){
+                zip_radio = document.getElementById("zip_radio");
+                zip_text = document.getElementById("zip_text");
+                here_radio = document.getElementById("here_radio");
+                if(zip_radio.checked){
+                    here_radio.checked = false;
+                    zip_text.disabled = false;
+                }
+            }
+            function toggle_here_radio(){
+                zip_radio = document.getElementById("zip_radio");
+                zip_text = document.getElementById("zip_text");
+                here_radio = document.getElementById("here_radio");
+                if(here_radio.checked){
+                    zip_radio.checked = false;
+                    zip_text.disabled = true;
+                }
+            }
+        </script>
+    </body>
+</html>
